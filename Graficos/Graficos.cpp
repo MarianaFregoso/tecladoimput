@@ -19,16 +19,51 @@ GLfloat red, green, blue;
 GLfloat ty = 0.0f;
 GLfloat tx = 0.0f;
 
-void actualizar() { 
-	int estadoarriba = glfwGetKey(window, GLFW_KEY_UP) {
-		if (estadoarriba == GLFW_PRESS) {
-			if (ty < 0.95) {
-				ty = += 0.05f
-			}
-		}
-}
+ double tiempoAnterior = 0.0;
+ double velocidad = 0.1; 
 
-}
+ void actualizar() {
+
+
+	 double tiempoActual = glfwGetTime();
+	 double Tiempotranscrrido = tiempoActual - tiempoAnterior;
+
+	 int estadoarriba = glfwGetKey(window, GLFW_KEY_UP);
+	 if (estadoarriba == GLFW_PRESS) {
+		 if (ty < 1)
+			 ty += velocidad * Tiempotranscrrido;
+
+	 }
+
+	 int estadoabajo = glfwGetKey(window, GLFW_KEY_DOWN);
+	 if (estadoabajo == GLFW_PRESS) {
+		 if (ty > -1)
+			 ty -= velocidad * Tiempotranscrrido;
+
+	 }
+
+	 int estadoizq = glfwGetKey(window, GLFW_KEY_LEFT );
+	 if (estadoabajo == GLFW_PRESS) {
+		 if (ty < 1)
+			 
+			 ty -= velocidad * Tiempotranscrrido;
+
+	 }
+
+	 int estadoderecha = glfwGetKey(window, GLFW_KEY_RIGHT);
+	 if (estadoabajo == GLFW_PRESS) {
+		 if (ty > -1)
+			 ty -= velocidad * Tiempotranscrrido;
+
+	 }
+	  
+	 tiempoAnterior = tiempoActual; 
+ }
+	 
+
+	 
+ 
+
 
 void dibujar() {
 	glPushMatrix();
@@ -64,6 +99,8 @@ void dibujar() {
 
 	if (tx <1 && key == GLFW_KEY_RIGHT && action == GLFW_PRESS || action == GLFW_REPEAT) {
 		tx += 0.05f;}
+
+
 
 	if (tx > -1 && key == GLFW_KEY_LEFT && action == GLFW_PRESS || action == GLFW_REPEAT){
 		tx -= 0.05f;}
@@ -111,10 +148,9 @@ int main()
 	const GLubyte *version = glGetString(GL_VERSION);
 	cout << "Version de OpenGL: " << version << endl;
 
-
 	red = green = blue = 0.0f;
 
-	glfwSetKeyCallback(window, key_callback);
+	tiempoAnterior = glfwGetTime(); 
 
 	//Ciclo de dibujo
 	while (!glfwWindowShouldClose(window)) {
